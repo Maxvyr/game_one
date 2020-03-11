@@ -1,7 +1,11 @@
+import 'dart:async';
 import 'dart:math';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flame/flame.dart';
 import 'package:flame/game/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:shared_preferences/shared_preferences.dart';
 import './components/start_text.dart';
 import './components/highscore_text.dart';
@@ -10,8 +14,22 @@ import './components/enemy.dart';
 import './components/health_bar.dart';
 import 'enemy_spawner.dart';
 import 'state.dart' as ste;
-
 import 'components/player.dart';
+
+//gestion image background
+ui.Image image;
+Future<Null> initImg() async {
+  final ByteData data = await rootBundle.load("assets/background.jpg");
+  image = await loadImage(new Uint8List.view(data.buffer));
+}
+
+Future<ui.Image> loadImage(List<int> img) async {
+  final Completer<ui.Image> completer = Completer();
+  ui.decodeImageFromList(img, (ui.Image img) {
+    return completer.complete(img);
+  });
+  return completer.future;
+}
 
 class GameController extends Game {
   final SharedPreferences storage;
@@ -31,6 +49,7 @@ class GameController extends Game {
 
   GameController(this.storage) {
     initialize();
+    initImg();
   }
 
   void initialize() async {
@@ -44,29 +63,23 @@ class GameController extends Game {
     score = 0; //init score player
     scoreText = ScoreText(this);
     highScoreText = HighScoreText(this);
-    startText =StartText(this);
+    startText = StartText(this);
   }
 
   void render(Canvas c) {
-    Rect background = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
-    Paint backgroudnPaint = Paint()..color = Colors.white;
-    //affiche le fond
-    c.drawRect(background, backgroudnPaint);
-
-    //affiche le player
-    player.render(c);
+    //affiche image de fond
+    c.drawImage(image, Offset(-410.0, 0), Paint());
 
     if (state == ste.State.menu) {
+      //affiche le player + text + highscore
+      player.render(c);
       startText.render(c);
       highScoreText.render(c);
     } else if (state == ste.State.playing) {
-      //affiche tout les enemies de la liste avec  forEach
+      //affiche la player + ennemies + score + lifebar
+      player.render(c);
       enemies.forEach((Enemy enemy) => enemy.render(c));
-
-      //affiche le score
       scoreText.render(c);
-
-      //affiche bar de vie
       healthBar.render(c);
     }
   }
