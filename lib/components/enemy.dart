@@ -46,7 +46,7 @@ class Enemy {
     if (!isDead) {
       double stepDistance = speed * t;
       //la position qu'il doit viser le centre du player (mais on soustrait le centre de l'enemy pour que le centre de l'enemy vise bien le centre du player et non le top de l'enemy)
-      Offset positionPlayer = gameController.player.playerRect.center - enemyRect.center;
+      Offset positionPlayer = gameController.ninjaPlayer.playerRect.center - enemyRect.center;
       //tant que enemy pas au bord du player il continu d'avancer
       if (stepDistance <= (positionPlayer.distance - gameController.tileSize *1.2)) {
         Offset stepToPositionPlayer = Offset.fromDirection(
@@ -65,8 +65,8 @@ class Enemy {
   //fonction attack player
   // si le player n'est pas mort alors on soustrait de sa currentlife la valeur dommage de l'enemy
   void attack() {
-    if (!gameController.player.isDead) {
-      gameController.player.currentHealth -= damage;
+    if (!gameController.ninjaPlayer.isDead) {
+      gameController.ninjaPlayer.currentHealth -= damage;
     }
   }
 

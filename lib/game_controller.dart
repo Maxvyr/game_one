@@ -36,7 +36,7 @@ class GameController extends Game {
   Random random;
   Size screenSize;
   double tileSize;
-  Player player;
+  NinjaPlayer ninjaPlayer;
   EnemySpawner enemySpawner;
   List<Enemy>
       enemies; //pour avoir plusieur enemy il faut créer une liste d'enemy
@@ -56,7 +56,7 @@ class GameController extends Game {
     resize(await Flame.util.initialDimensions());
     state = ste.State.menu;
     random = Random();
-    player = Player(this);
+    ninjaPlayer = NinjaPlayer(this);
     enemies = List<Enemy>(); //créer liste d'ennemy vide
     enemySpawner = EnemySpawner(this);
     healthBar = HealthBar(this);
@@ -72,12 +72,12 @@ class GameController extends Game {
 
     if (state == ste.State.menu) {
       //affiche le player + text + highscore
-      player.render(c);
+      ninjaPlayer.render(c);
       startText.render(c);
       highScoreText.render(c);
     } else if (state == ste.State.playing) {
       //affiche la player + ennemies + score + lifebar
-      player.render(c);
+      ninjaPlayer.render(c);
       enemies.forEach((Enemy enemy) => enemy.render(c));
       scoreText.render(c);
       healthBar.render(c);
@@ -94,7 +94,7 @@ class GameController extends Game {
       enemies.forEach((Enemy enemy) => enemy.update(t));
       //delete enemy when is Dead => for do that when the enemy is dead is delete from the list so is not render anymore
       enemies.removeWhere((Enemy enemy) => enemy.isDead);
-      player.update(t);
+      ninjaPlayer.update(t);
       scoreText.update(t);
       healthBar.update(t);
     }

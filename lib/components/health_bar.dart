@@ -37,7 +37,7 @@ class HealthBar {
 
   void update (double t) {
     double barWidth = gameController.screenSize.width *0.75;
-    double pourcentageHealth = gameController.player.currentHealth / gameController.player.maxHealth;
+    double pourcentageHealth = gameController.ninjaPlayer.currentHealth / gameController.ninjaPlayer.maxHealth;
     //decrease green bar
     remainingHealthRect = Rect.fromLTWH(
       gameController.screenSize.width / 2 - barWidth / 2,

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../controller/colors.dart';
 import '../game_controller.dart';
 
-class Player {
+class NinjaPlayer {
   final GameController gameController;
   int maxHealth;
   int currentHealth;
   Rect playerRect;
   bool isDead = false;
 
-  Player(this.gameController) {
+  NinjaPlayer(this.gameController) {
     //au démarrage la vie max et la current life sont = toute les 2 et on set la val aprés
     maxHealth = currentHealth = 300;
     //création de la taille du player qui dépendra de l'écran car appel fonction tileSize qui dépend de chaque écran ou est jouer le game
@@ -25,6 +25,7 @@ class Player {
 
   //créer le payer le carré de couleru bleu
   void render (Canvas c) {
+    // c.drawImage(image, Offset(0, 0),Paint());
     Paint color =  Paint()..color = playerColor;
     c.drawRect(playerRect, color);
   }
