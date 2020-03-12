@@ -6,6 +6,8 @@ class HighScoreText {
   final GameController gameController;
   TextPainter painter;
   Offset position;
+  double pourcentageHeigth = 0.15;
+  double pourcentageWidth = 0.25;
 
   HighScoreText(this.gameController) {
     painter = TextPainter(
@@ -31,8 +33,8 @@ class HighScoreText {
       painter.layout();
 
       position = Offset(
-        (gameController.screenSize.width / 2 - painter.width / 2),
-        (gameController.screenSize.height * 0.18 - painter.width / 2),
+        (gameController.screenSize.width*pourcentageWidth),
+        (gameController.screenSize.height*pourcentageHeigth),
       );
     }
 }
