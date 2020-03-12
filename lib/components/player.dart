@@ -14,8 +14,10 @@ class NinjaPlayer {
   Rect playerLegsL;
   Rect playerLegsR;
   Rect playerHead;
-  Rect playerEyesOne;
-  Rect playerEyesTwo;
+  Rect playerEyesOneI;
+  Rect playerEyesTwoI;
+  Rect playerEyesOneO;
+  Rect playerEyesTwoO;
   bool isDead = false;
 
   NinjaPlayer(this.gameController) {
@@ -26,7 +28,8 @@ class NinjaPlayer {
     double widthArmsLegs = 10;
     double heightLegs = 20;
     double heightArms = 10;
-    double eyesSize = 5;
+    double eyesSizeInside = 2.5;
+    double eyesSizeOutside = 5;
     //draw ninja
     //body
     playerBody = Rect.fromLTWH(
@@ -70,35 +73,52 @@ class NinjaPlayer {
       size,
       10,
     );
-    //eyes 1
-    playerEyesOne = Rect.fromLTWH(
+    //eyes 1 Inside
+    playerEyesOneI = Rect.fromLTWH(
       gameController.screenSize.width / 2 - 10,
       gameController.screenSize.height / 2 - size / 4,
-      eyesSize,
-      eyesSize,
+      eyesSizeInside,
+      eyesSizeInside,
     );
-    //eyes2
-    playerEyesTwo = Rect.fromLTWH(
+    //eyes 1 Outside
+    playerEyesOneO = Rect.fromLTWH(
+      gameController.screenSize.width / 2 - 10,
+      gameController.screenSize.height / 2 - size / 4,
+      eyesSizeOutside,
+      eyesSizeOutside,
+    );
+    //eyes 2 Inside
+    playerEyesTwoI = Rect.fromLTWH(
       gameController.screenSize.width / 2 + 10,
       gameController.screenSize.height / 2 - size / 4,
-      eyesSize,
-      eyesSize,
+      eyesSizeInside,
+      eyesSizeInside,
+    );
+    //eyes 2 Outside
+    playerEyesTwoO = Rect.fromLTWH(
+      gameController.screenSize.width / 2 + 10,
+      gameController.screenSize.height / 2 - size / 4,
+      eyesSizeOutside,
+      eyesSizeOutside,
     );
   }
 
   //créer le payer le carré de couleru bleu
   void render(Canvas c) {
-    Paint color = Paint()..color = playerColor;
-    c.drawRect(playerBody, color);
-    c.drawRect(playerArmsL, color);
-    c.drawRect(playerArmsR, color);
-    c.drawRect(playerLegsL, color);
-    c.drawRect(playerLegsR, color);
-    Paint colorH = Paint()..color = face;
-    c.drawRect(playerHead, colorH);
-    Paint colorB = Paint()..color = black;
-    c.drawRect(playerEyesOne, colorB);
-    c.drawRect(playerEyesTwo, colorB);
+    Paint colorBody = Paint()..color = playerColor;
+    c.drawRect(playerBody, colorBody);
+    c.drawRect(playerArmsL, colorBody);
+    c.drawRect(playerArmsR, colorBody);
+    c.drawRect(playerLegsL, colorBody);
+    c.drawRect(playerLegsR, colorBody);
+    Paint colorHead = Paint()..color = face;
+    c.drawRect(playerHead, colorHead);
+    Paint colorEyesB = Paint()..color = black;
+    c.drawRect(playerEyesOneO, colorEyesB);
+    c.drawRect(playerEyesTwoO, colorEyesB);
+    Paint colorEyesW = Paint()..color = white;
+    c.drawRect(playerEyesOneI, colorEyesW);
+    c.drawRect(playerEyesTwoI, colorEyesW);
   }
 
   void update(double t) {
