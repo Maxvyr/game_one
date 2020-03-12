@@ -33,8 +33,8 @@ class HighScoreText {
       painter.layout();
 
       position = Offset(
-        (gameController.screenSize.width*pourcentageWidth),
-        (gameController.screenSize.height*pourcentageHeigth),
+        (gameController.screenSize.width * pourcentageWidth),
+        (gameController.screenSize.height * pourcentageHeigth),
       );
     }
 }
