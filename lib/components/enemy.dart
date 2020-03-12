@@ -7,19 +7,96 @@ class Enemy {
   int health;
   int damage;
   double speed;
-  Rect enemyRect;
+  Rect enemyBody;
+  Rect enemyArmsL;
+  Rect enemyArmsR;
+  Rect enemyLegsL;
+  Rect enemyLegsR;
+  Rect enemyHead;
+  Rect enemyEyesOneI;
+  Rect enemyEyesTwoI;
+  Rect enemyEyesOneO;
+  Rect enemyEyesTwoO;
   bool isDead = false;
 
   Enemy(this.gameController, double x, double y) {
     health = 2;
-    damage = 1;
+    damage = 1;    
+    double widthArmsLegs = 10;
+    double heightLegs = 20;
+    double heightArms = 10;
+    double eyesSizeInside = 2.5;
+    double eyesSizeOutside = 5;
     //vitesse qui correspond a 2 fois sa taille
     speed = gameController.tileSize * 2;
-    enemyRect = Rect.fromLTWH(
+    enemyBody = Rect.fromLTWH(
       x,
       y,
       gameController.tileSize * 1.2,
       gameController.tileSize * 1.2,
+    );
+    //arm left
+    enemyArmsL = Rect.fromLTWH(
+      x,
+      y,
+      widthArmsLegs,
+      heightArms,
+    );
+    //arm right
+    enemyArmsR = Rect.fromLTWH(
+      x,
+      y,
+      widthArmsLegs,
+      heightArms,
+    );
+    //leg left
+    enemyLegsL = Rect.fromLTWH(
+      x,
+      y,
+      widthArmsLegs,
+      heightLegs,
+    );
+    //leg right
+    enemyLegsR = Rect.fromLTWH(      
+      x,
+      y,
+      widthArmsLegs,
+      heightLegs,
+    );
+    //head
+    enemyHead = Rect.fromLTWH(
+      x,
+      y,
+      gameController.tileSize * 1.2,
+      10,
+    );
+    //eyes 1 Inside
+    enemyEyesOneI = Rect.fromLTWH(
+      x,
+      y,
+      eyesSizeInside,
+      eyesSizeInside,
+    );
+    //eyes 1 Outside
+    enemyEyesOneO = Rect.fromLTWH(
+      x,
+      y,
+      eyesSizeOutside,
+      eyesSizeOutside,
+    );
+    //eyes 2 Inside
+    enemyEyesTwoI = Rect.fromLTWH(
+      x,
+      y,
+      eyesSizeInside,
+      eyesSizeInside,
+    );
+    //eyes 2 Outside
+    enemyEyesTwoO = Rect.fromLTWH(
+      x,
+      y,
+      eyesSizeOutside,
+      eyesSizeOutside,
     );
   }
 
@@ -38,7 +115,19 @@ class Enemy {
         break;
     }
     Paint enemyColor = Paint()..color = colorEnemyFctLife;
-    c.drawRect(enemyRect, enemyColor);
+    c.drawRect(enemyBody, enemyColor);
+    /*c.drawRect(enemyArmsL, enemyColor);
+    c.drawRect(enemyArmsR, enemyColor);
+    c.drawRect(enemyLegsL, enemyColor);
+    c.drawRect(enemyLegsR, enemyColor);*/
+    Paint colorHead = Paint()..color = face;
+    c.drawRect(enemyHead, colorHead);
+    /*Paint colorEyesB = Paint()..color = black;
+    c.drawRect(enemyEyesOneO, colorEyesB);
+    c.drawRect(enemyEyesTwoO, colorEyesB);
+    Paint colorEyesW = Paint()..color = white;
+    c.drawRect(enemyEyesOneI, colorEyesW);
+    c.drawRect(enemyEyesTwoI, colorEyesW);*/
   }
 
   //déplacement
@@ -46,7 +135,7 @@ class Enemy {
     if (!isDead) {
       double stepDistance = speed * t;
       //la position qu'il doit viser le centre du player (mais on soustrait le centre de l'enemy pour que le centre de l'enemy vise bien le centre du player et non le top de l'enemy)
-      Offset positionPlayer = gameController.ninjaPlayer.playerBody.center - enemyRect.center;
+      Offset positionPlayer = gameController.ninjaPlayer.playerBody.center - enemyBody.center;
       //tant que enemy pas au bord du player il continu d'avancer
       if (stepDistance <= (positionPlayer.distance - gameController.tileSize *1.2)) {
         Offset stepToPositionPlayer = Offset.fromDirection(
@@ -54,7 +143,7 @@ class Enemy {
           stepDistance,
         );
         //la méthode shift permet de déplacer le widget (ici l'enemy) a l'ensroit spécifier
-        enemyRect = enemyRect.shift(stepToPositionPlayer);
+        enemyBody = enemyBody.shift(stepToPositionPlayer);
       } else {
         //si enemy sur le player alors il l'attaque
         attack();

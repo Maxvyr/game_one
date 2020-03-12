@@ -111,7 +111,7 @@ class GameController extends Game {
       state = ste.State.playing;
     } else if (state == ste.State.playing) {
       enemies.forEach((Enemy enemy) {
-        if (enemy.enemyRect.contains(d.globalPosition)) {
+        if (enemy.enemyBody.contains(d.globalPosition)) {
           enemy.onTapDown();
         }
       });
