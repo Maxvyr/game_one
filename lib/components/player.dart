@@ -111,7 +111,7 @@ class NinjaPlayer {
     c.drawRect(playerArmsR, colorBody);
     c.drawRect(playerLegsL, colorBody);
     c.drawRect(playerLegsR, colorBody);
-    Paint colorHead = Paint()..color = face;
+    Paint colorHead = Paint()..color = colorFaceMax;
     c.drawRect(playerHead, colorHead);
     Paint colorEyesB = Paint()..color = black;
     c.drawRect(playerEyesOneO, colorEyesB);

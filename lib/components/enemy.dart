@@ -21,10 +21,13 @@ class Enemy {
 
   Enemy(this.gameController, double x, double y) {
     health = 2;
-    damage = 1;    
-    double widthArmsLegs = 10;
-    double heightLegs = 20;
-    double heightArms = 10;
+    damage = 1;
+    double widthEnemy = 0.8;
+    double positionYHeadAndEyes = 8;
+    double positionYArms = 18;
+    double widthArmsLegs = 8;
+    double heightLegs = 12;
+    double heightArms = 8;
     double eyesSizeInside = 2.5;
     double eyesSizeOutside = 5;
     //vitesse qui correspond a 2 fois sa taille
@@ -32,69 +35,69 @@ class Enemy {
     enemyBody = Rect.fromLTWH(
       x,
       y,
-      gameController.tileSize * 1.2,
-      gameController.tileSize * 1.2,
+      gameController.tileSize * widthEnemy,
+      gameController.tileSize * widthEnemy,
     );
     //arm left
     enemyArmsL = Rect.fromLTWH(
-      x,
-      y,
+      x + (gameController.tileSize * widthEnemy),
+      y + positionYArms,
       widthArmsLegs,
       heightArms,
     );
     //arm right
     enemyArmsR = Rect.fromLTWH(
-      x,
-      y,
+      x - widthArmsLegs,
+      y + positionYArms,
       widthArmsLegs,
       heightArms,
     );
     //leg left
     enemyLegsL = Rect.fromLTWH(
-      x,
-      y,
+      x + (gameController.tileSize * 0.5),
+      y + gameController.tileSize * 0.8,
       widthArmsLegs,
       heightLegs,
     );
     //leg right
-    enemyLegsR = Rect.fromLTWH(      
-      x,
-      y,
+    enemyLegsR = Rect.fromLTWH(
+      x + (gameController.tileSize * 0.1),
+      y + gameController.tileSize * 0.8,
       widthArmsLegs,
       heightLegs,
     );
     //head
     enemyHead = Rect.fromLTWH(
       x,
-      y,
-      gameController.tileSize * 1.2,
+      y + positionYHeadAndEyes,
+      gameController.tileSize * widthEnemy,
       10,
     );
     //eyes 1 Inside
     enemyEyesOneI = Rect.fromLTWH(
-      x,
-      y,
+      x + gameController.tileSize * 0.2,
+      y + positionYHeadAndEyes,
       eyesSizeInside,
       eyesSizeInside,
     );
     //eyes 1 Outside
     enemyEyesOneO = Rect.fromLTWH(
-      x,
-      y,
+      x + gameController.tileSize * 0.2,
+      y + positionYHeadAndEyes,
       eyesSizeOutside,
       eyesSizeOutside,
     );
     //eyes 2 Inside
     enemyEyesTwoI = Rect.fromLTWH(
-      x,
-      y,
+      x + gameController.tileSize * 0.6,
+      y + positionYHeadAndEyes,
       eyesSizeInside,
       eyesSizeInside,
     );
     //eyes 2 Outside
-    enemyEyesTwoO = Rect.fromLTWH(
-      x,
-      y,
+    enemyEyesTwoO = Rect.fromLTWH(      
+      x + gameController.tileSize * 0.6,
+      y + positionYHeadAndEyes,
       eyesSizeOutside,
       eyesSizeOutside,
     );
@@ -103,12 +106,15 @@ class Enemy {
   void render(Canvas c) {
     //change de couleur en fonction de son niveau de vie
     Color colorEnemyFctLife;
+    Color colorHeadFctLife;;
     switch (health) {
       case 1:
         colorEnemyFctLife = enemyColorMin;
+        colorHeadFctLife = colorFaceMin;
         break;
       case 2:
         colorEnemyFctLife = enemyColorMax;
+        colorHeadFctLife = colorFaceMax;
         break;
       default:
         colorEnemyFctLife = Colors.red;
@@ -116,18 +122,18 @@ class Enemy {
     }
     Paint enemyColor = Paint()..color = colorEnemyFctLife;
     c.drawRect(enemyBody, enemyColor);
-    /*c.drawRect(enemyArmsL, enemyColor);
+    c.drawRect(enemyArmsL, enemyColor);
     c.drawRect(enemyArmsR, enemyColor);
     c.drawRect(enemyLegsL, enemyColor);
-    c.drawRect(enemyLegsR, enemyColor);*/
-    Paint colorHead = Paint()..color = face;
+    c.drawRect(enemyLegsR, enemyColor);
+    Paint colorHead = Paint()..color = colorHeadFctLife;
     c.drawRect(enemyHead, colorHead);
-    /*Paint colorEyesB = Paint()..color = black;
+    Paint colorEyesB = Paint()..color = black;
     c.drawRect(enemyEyesOneO, colorEyesB);
     c.drawRect(enemyEyesTwoO, colorEyesB);
     Paint colorEyesW = Paint()..color = white;
     c.drawRect(enemyEyesOneI, colorEyesW);
-    c.drawRect(enemyEyesTwoI, colorEyesW);*/
+    c.drawRect(enemyEyesTwoI, colorEyesW);
   }
 
   //déplacement
@@ -135,15 +141,26 @@ class Enemy {
     if (!isDead) {
       double stepDistance = speed * t;
       //la position qu'il doit viser le centre du player (mais on soustrait le centre de l'enemy pour que le centre de l'enemy vise bien le centre du player et non le top de l'enemy)
-      Offset positionPlayer = gameController.ninjaPlayer.playerBody.center - enemyBody.center;
+      Offset positionPlayer =
+          gameController.ninjaPlayer.playerBody.center - enemyBody.center;
       //tant que enemy pas au bord du player il continu d'avancer
-      if (stepDistance <= (positionPlayer.distance - gameController.tileSize *1.2)) {
+      if (stepDistance <=
+          (positionPlayer.distance - gameController.tileSize * 1.2)) {
         Offset stepToPositionPlayer = Offset.fromDirection(
           positionPlayer.direction,
           stepDistance,
         );
         //la méthode shift permet de déplacer le widget (ici l'enemy) a l'ensroit spécifier
         enemyBody = enemyBody.shift(stepToPositionPlayer);
+        enemyArmsL = enemyArmsL.shift(stepToPositionPlayer);
+        enemyArmsR = enemyArmsR.shift(stepToPositionPlayer);
+        enemyLegsL = enemyLegsL.shift(stepToPositionPlayer);
+        enemyLegsR = enemyLegsR.shift(stepToPositionPlayer);
+        enemyHead = enemyHead.shift(stepToPositionPlayer);
+        enemyEyesOneI = enemyEyesOneI.shift(stepToPositionPlayer);
+        enemyEyesOneO = enemyEyesOneO.shift(stepToPositionPlayer);
+        enemyEyesTwoI = enemyEyesTwoI.shift(stepToPositionPlayer);
+        enemyEyesTwoO = enemyEyesTwoO.shift(stepToPositionPlayer);
       } else {
         //si enemy sur le player alors il l'attaque
         attack();
@@ -169,7 +186,8 @@ class Enemy {
         //comparer le score courant ou meilleur score
         // sir le score en cour est plus grand que le score stock avec SharedPref alor on le stock a la place sinon non
         //subtilite les ?? 0 veut dire que si il n"y a pas de valeur sotcker dans highscore alors on met 0 a la place (utile pour la première fois)
-        if (gameController.score > (gameController.storage.getInt("highscore")?? 0)) { 
+        if (gameController.score >
+            (gameController.storage.getInt("highscore") ?? 0)) {
           gameController.storage.setInt("highscore", gameController.score);
         }
       }
