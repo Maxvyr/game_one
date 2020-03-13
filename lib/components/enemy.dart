@@ -20,7 +20,7 @@ class Enemy {
   bool isDead = false;
 
   Enemy(this.gameController, double x, double y) {
-    final size = gameController.tileSize*0.8;
+    final size = gameController.tileSize * 0.8;
     health = 2;
     damage = 1;
     double positionYHeadAndEyes = 8;

@@ -24,10 +24,10 @@ class NinjaPlayer {
     //au démarrage la vie max et la current life sont = toute les 2 et on set la val aprés
     maxHealth = currentHealth = 300;
     //création de la taille du player qui dépendra de l'écran car appel fonction tileSize qui dépend de chaque écran ou est jouer le game
-    final size = gameController.tileSize;
+    final size = gameController.tileSize * 0.8;
     double widthArmsLegs = 10;
-    double heightLegs = 20;
-    double heightArms = 10;
+    double heightLegs = 12;
+    double heightArms = 8;
     double eyesSizeInside = 2.5;
     double eyesSizeOutside = 5;
     //draw ninja
@@ -40,29 +40,29 @@ class NinjaPlayer {
     );
     //arm left
     playerArmsL = Rect.fromLTWH(
-      gameController.screenSize.width / 2 + widthArmsLegs * 2,
-      gameController.screenSize.height / 2,
+      gameController.screenSize.width * 0.535,
+      gameController.screenSize.height * 0.502,
       widthArmsLegs,
       heightArms,
     );
     //arm right
     playerArmsR = Rect.fromLTWH(
-      gameController.screenSize.width / 2 - widthArmsLegs * 3,
-      gameController.screenSize.height / 2,
+      gameController.screenSize.width * 0.44,
+      gameController.screenSize.height * 0.502,
       widthArmsLegs,
       heightArms,
     );
     //leg left
     playerLegsL = Rect.fromLTWH(
-      gameController.screenSize.width / 2 + size / 2.5 - widthArmsLegs,
-      gameController.screenSize.height / 2 + widthArmsLegs * 1.2,
+      gameController.screenSize.width * 0.51,
+      gameController.screenSize.height * 0.52,
       widthArmsLegs,
       heightLegs,
     );
     //leg right
     playerLegsR = Rect.fromLTWH(
-      gameController.screenSize.width / 2 - size / 2.5,
-      gameController.screenSize.height / 2 + widthArmsLegs * 1.2,
+      gameController.screenSize.width * 0.465,
+      gameController.screenSize.height * 0.52,
       widthArmsLegs,
       heightLegs,
     );
