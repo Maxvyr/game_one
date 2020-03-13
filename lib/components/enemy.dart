@@ -20,9 +20,9 @@ class Enemy {
   bool isDead = false;
 
   Enemy(this.gameController, double x, double y) {
+    final size = gameController.tileSize*0.8;
     health = 2;
     damage = 1;
-    double widthEnemy = 0.8;
     double positionYHeadAndEyes = 8;
     double positionYArms = 18;
     double widthArmsLegs = 8;
@@ -35,12 +35,12 @@ class Enemy {
     enemyBody = Rect.fromLTWH(
       x,
       y,
-      gameController.tileSize * widthEnemy,
-      gameController.tileSize * widthEnemy,
+      size,
+      size,
     );
     //arm left
     enemyArmsL = Rect.fromLTWH(
-      x + (gameController.tileSize * widthEnemy),
+      x + size,
       y + positionYArms,
       widthArmsLegs,
       heightArms,
@@ -70,7 +70,7 @@ class Enemy {
     enemyHead = Rect.fromLTWH(
       x,
       y + positionYHeadAndEyes,
-      gameController.tileSize * widthEnemy,
+      size,
       10,
     );
     //eyes 1 Inside
@@ -106,7 +106,7 @@ class Enemy {
   void render(Canvas c) {
     //change de couleur en fonction de son niveau de vie
     Color colorEnemyFctLife;
-    Color colorHeadFctLife;;
+    Color colorHeadFctLife;
     switch (health) {
       case 1:
         colorEnemyFctLife = enemyColorMin;
@@ -122,10 +122,11 @@ class Enemy {
     }
     Paint enemyColor = Paint()..color = colorEnemyFctLife;
     c.drawRect(enemyBody, enemyColor);
-    c.drawRect(enemyArmsL, enemyColor);
-    c.drawRect(enemyArmsR, enemyColor);
-    c.drawRect(enemyLegsL, enemyColor);
-    c.drawRect(enemyLegsR, enemyColor);
+    Paint colorArmsLegs = Paint()..color = black;
+    c.drawRect(enemyArmsL, colorArmsLegs);
+    c.drawRect(enemyArmsR, colorArmsLegs);
+    c.drawRect(enemyLegsL, colorArmsLegs);
+    c.drawRect(enemyLegsR, colorArmsLegs);
     Paint colorHead = Paint()..color = colorHeadFctLife;
     c.drawRect(enemyHead, colorHead);
     Paint colorEyesB = Paint()..color = black;

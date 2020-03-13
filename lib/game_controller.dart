@@ -6,6 +6,7 @@ import 'package:flame/flame.dart';
 import 'package:flame/game/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:game_one/controller/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './components/start_text.dart';
 import './components/highscore_text.dart';
@@ -69,6 +70,15 @@ class GameController extends Game {
   void render(Canvas c) {
     //affiche image de fond
     c.drawImage(image, Offset(-410.0, 0), Paint());
+    Paint colorOpacity = Paint()..color = greyOpacity;
+    c.drawRect(
+        Rect.fromLTWH(
+          0,
+          0,
+          screenSize.width,
+          screenSize.height,
+        ),
+        colorOpacity);
 
     if (state == ste.State.menu) {
       //affiche le player + text + highscore
