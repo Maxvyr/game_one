@@ -4,10 +4,10 @@ import 'game_controller.dart';
 class EnemySpawner {
 
   final GameController gameController;
-  final int maxSpawnInterval = 2500; //écart max entre chaque apparition
-  final int minSpawnInterval = 500; //écart min entre chaque apparition
+  final int maxSpawnInterval = 3500; //écart max entre chaque apparition
+  final int minSpawnInterval = 700; //écart min entre chaque apparition
   final int intervalChange = 5;
-  final int maxEnemies = 10;
+  final int maxEnemies = 7;
   int currentInterval;
   int nextSpan;
 
