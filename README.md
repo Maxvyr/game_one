@@ -7,5 +7,11 @@ A flutter game
 
 contact : pandamydev@gmail.com
 
+# Crypto Tips 
+
+
+![ETH_QR_Code](https://i.imgur.com/XpF2vgw.png)
+
+
 
 
