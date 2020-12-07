@@ -3,15 +3,19 @@
 A flutter game
 
 
-<a href="https://www.buymeacoffee.com/Maxvy" target="_blank"><img src="https://i.imgur.com/CNigpZm.png" alt="A Little Coffee Please" style="height: 25px;width: 50px;" ></a>
+# My apps on Store
 
-contact : pandamydev@gmail.com
+<a href="[https://play.google.com/store/apps/developer?id=Pandamy](https://play.google.com/store/apps/developer?id=Pandamy)" target="_blank"><img src="[https://i.imgur.com/YetVBL1.png](https://i.imgur.com/YetVBL1.png)" alt="Get in on PlayStore" style="height: 25px; width: 50px;" ></a>
 
-# Crypto Tips 
+contact : [pandamydev@gmail.com](mailto:pandamydev@gmail.com)
 
+# Tips
 
-![ETH_QR_Code](https://i.imgur.com/XpF2vgw.png)
+- [Donation](https://ko-fi.com/maxvyr)
 
+# Crypto Tips (ETH)
+
+![https://i.imgur.com/XpF2vgw.png](https://i.imgur.com/XpF2vgw.png)
 
 
 
